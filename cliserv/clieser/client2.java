@@ -1,22 +1,61 @@
-
-import java.io.DataOutputStream; 
-import java.net.Socket;
+package cliser;
 
 
-public class client2 {
-    public static void main(String[] arg) {
-  try {
-
-     Socket socketConnection = new Socket("127.0.0.1", 11111);
 
 
-     //QUERY PASSING
-     DataOutputStream outToServer = new DataOutputStream(socketConnection.getOutputStream());
+import java.net.*;
+import java.io.*;
 
-     String SQL="I am  Client 2";
-     outToServer.writeUTF(SQL);
-
-
-  } catch (Exception e) {System.out.println(e); }
-   }
- }
+class client2
+{
+	private Socket s;
+	
+	public client2(String address,int port)
+	{
+		try
+		{
+			s = new Socket(address,port);
+			System.out.println(s);   
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+	
+	public void sendMsgToServer() throws Exception{
+		OutputStream outToServer = s.getOutputStream();
+		DataOutputStream out = new DataOutputStream(outToServer);
+		   
+		out.writeUTF("Hello from client2 " + s.getLocalSocketAddress());
+	}
+		public void msgrec() throws Exception {
+	InputStream inFromServer = s.getInputStream();
+	   DataInputStream in = new DataInputStream(inFromServer);
+	  String msg =(String)in.readUTF();
+     System.out.println("Server says " + msg);
+	}
+	
+	public void closeSocket() throws Exception{
+		s.close();
+	}
+	
+	public static void main(String str[])
+	{
+		client2 ob=new client2("127.0.0.1",11111);
+		try {
+			Thread.sleep(10000);
+			ob.sendMsgToServer();
+			Thread.sleep(10000);
+			ob.msgrec();
+			Thread.sleep(1000);
+			ob.closeSocket();
+			Thread.sleep(1000);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	  
+	}
+}
+  

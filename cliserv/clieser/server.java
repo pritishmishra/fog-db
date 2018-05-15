@@ -1,16 +1,18 @@
-
+package cliser;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class server {
 
 public static void main(String args[]) throws IOException{  
 
     while(true){
-        ServerSocket ss=new ServerSocket(11111);
+        ServerSocket ss=new ServerSocket(2222);
         System.out.println("Server is Awaiting"); 
         Socket s=ss.accept();
         Multi t=new Multi(s);
@@ -32,6 +34,8 @@ public static void main(String args[]) throws IOException{
 }
 
 
+
+
 class Multi extends Thread{
 private Socket s=null;
 DataInputStream infromClient;
@@ -48,6 +52,9 @@ public void run(){
     String SQL=new String();
     try {
         SQL = infromClient.readUTF();
+        DataOutputStream out = new DataOutputStream(s.getOutputStream());
+        out.writeUTF("Thank you for connecting to " + s.getLocalSocketAddress()
+            + "\nGoodbye!");
     } catch (IOException ex) {
         Logger.getLogger(Multi.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -60,3 +67,9 @@ public void run(){
        }
    }  
 }
+
+
+
+
+
+
