@@ -16,7 +16,7 @@ class ClientThread extends Thread {
     threadcount++;
     try {
       socket = 
-        new Socket("192.168.43.10",9999);
+        new Socket("192.168.225.43",9997);
     } catch(IOException e) {
       // If the creation of the socket fails, 
       // nothing needs to be cleaned up.
@@ -64,12 +64,12 @@ class ClientThread extends Thread {
 }
  
 public class client {
-  static final int MAX_THREADS = 40;
   public static void main(String[] args) 
       throws IOException, InterruptedException {
     while(true) {
       if(ClientThread.threadCount() 
-         > MAX_THREADS)
+         < 40)
+    	  new ClientThread();
       Thread.currentThread().sleep(100);
     }
   }
