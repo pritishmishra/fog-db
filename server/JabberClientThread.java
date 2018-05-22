@@ -1,7 +1,7 @@
 import java.net.*;
 import java.io.*;
  
-class ClientThread extends Thread {
+class JabberClientThread extends Thread {
   private Socket socket;
   private BufferedReader in;
   private PrintWriter out;
@@ -11,12 +11,11 @@ class ClientThread extends Thread {
   public static int threadCount() { 
     return threadcount; 
   }
-  public ClientThread() {
+  public JabberClientThread() {
     System.out.println("Making client " + id);
     threadcount++;
     try {
-      socket = 
-        new Socket("192.168.225.43",9997);
+      socket = new Socket("192.168.43.32", 9999);
     } catch(IOException e) {
       // If the creation of the socket fails, 
       // nothing needs to be cleaned up.
@@ -46,12 +45,15 @@ class ClientThread extends Thread {
   }
   public void run() {
     try {
-      for(int i = 0; i <= 25; i++) {
+      /*for(int i = 0; i < 25; i++) {
         out.println("Client " + id + ": " + i);
         String str = in.readLine();
         System.out.println(str);
       }
-      out.println("END");
+      out.println("END");*/
+    	DataOutputStream dos=new DataOutputStream(socket.getOutputStream());
+    	dos.writeUTF("This is client 1");
+    	out.println("END");
     } catch(IOException e) {
     } finally {
       // Always close it:
@@ -62,16 +64,3 @@ class ClientThread extends Thread {
     }
   }
 }
- 
-public class client {
-  public static void main(String[] args) 
-      throws IOException, InterruptedException {
-    while(true) {
-      if(ClientThread.threadCount() 
-         < 40)
-    	  new ClientThread();
-      Thread.currentThread().sleep(100);
-    }
-  }
-} 
-
