@@ -11,16 +11,6 @@ public class UTable {
 
     private void initializeColumn() {
 	// this is the hard coded function just to check implementation
-	// ArrayList<Integer> value= new ArrayList<Integer>();
-	// value.add(1);
-	// value.add(2);
-	// column.put("Id", value);
-	
-	// ArrayList<String> newval= new ArrayList<String>();
-	// newval.add("A");
-	// newval.add("B");
-	// column.put("Name", newval);
-	
 	ArrayList<BooleanData> value= new ArrayList<BooleanData>();
 	value.add(new BooleanData("Id", 1));
 	value.add(new BooleanData("Id", 0));
@@ -32,27 +22,11 @@ public class UTable {
 	column.put("Name", newval);
 	    
     }
+	
 
-    public void toString(String Table) {
-	if(this.tableName == Table) {
-	    System.out.println(this.column);
-	}
-	else {
-	    System.out.println(" Table does not exist ");
-	}
-    }
-
+	// may include methods insert, update, delete and so on.
+	
     public void deleteTable(String Table) {
-
-	// Iterator mapCounter = column.entrySet().iterator();
-	// while(mapCounter.hasNext()) {
-	//     Map.Entry item = (Map.Entry)mapCounter.next();
-	//     ListIterator valueIterator = item.getValue().iterator();
-	//     while(valueIterator.hasNext()) {
-	// 	valueIterator.remove();
-	// 	valueIterator.next();
-	//     }
-	// }
 
 	if(this.tableName == Table) {
 	    for(String key: column.keySet()) {
@@ -67,5 +41,15 @@ public class UTable {
 	    System.out.println(" Table does not exist ");
 	}   
     }
+
+    public void toString(String Table) {
+	if(this.tableName == Table) {
+	    System.out.println(this.column);
+	}
+	else {
+	    System.out.println(" Table does not exist ");
+	}
+    }
+
 	    
 }
