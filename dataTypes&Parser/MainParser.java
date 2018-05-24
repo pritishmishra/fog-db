@@ -1,29 +1,37 @@
-package dataTypes;
+
 
 import java.util.Scanner;
 
 public class MainParser {
 
-	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		System.out.println("Enter your command");
-		String str=in.nextLine();
-		parserString(str);
+		String cmd=in.nextLine();
+		parserString(cmd);
 		
 
 	}
 
-	private static void parserString(String str) {
-		String s[]=str.split(" ");
-		s[0]=s[0].toUpperCase();
-		System.out.println(s[0]);
-		switch (s[0]) {
+	private static void parserString(String cmd) {
+		// add a semicolon at last process begins
+		cmd=cmd.trim();
+		if(cmd.charAt(cmd.length()-1)!=';') {
+			cmd+=" ;";
+		}
+		// add a semicolon at last process ends
+		String cmdArr[]=cmd.split(" ");
+		cmdArr[0]=cmdArr[0].toUpperCase();
+		System.out.println(cmdArr[0]);
+	
+		Table tableObj=new Table();
+		Boolean cmdSuccess=false;
+		switch (cmdArr[0]) {
 		case "CREATE":
 			//creation and call to respective class object
 			break;
 		case "UPDATE":
-			//creation and call to respective class object
+			cmdSuccess=tableObj.updateTable(cmdArr);
 			break;
 		case "DELETE":
 			//creation and call to respective class object
@@ -37,6 +45,11 @@ public class MainParser {
 		default:
 			System.out.println("Not A valid Command");
 			break;
+		}
+		if(cmdSuccess) {
+			System.out.println(cmd+" SUCCESSFULL");
+		}else {
+			System.out.println(cmd+" NOT SUCCESSFULL");
 		}
 		
 	}

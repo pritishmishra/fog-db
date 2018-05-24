@@ -1,4 +1,3 @@
-package dataTypes;
 
 public class Doublep {
 	private Double d;
