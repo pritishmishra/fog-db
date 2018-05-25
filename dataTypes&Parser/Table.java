@@ -1,8 +1,12 @@
+package dataTypesParser;
 
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Table {
+	//update master set Name = B , Id = 5 where Name = A Id = 3
 	String tableName;
 	HashMap<String,ArrayList<?>> column=new HashMap<String,ArrayList<?>>();
 
@@ -27,10 +31,10 @@ public class Table {
 		
 	}
 	
-	public static void main(String[] args) {
-		Table ob= new Table();
-				
-	}
+//	public static void main(String[] args) {
+//		Table ob= new Table();
+//				
+//	}
 
 	public boolean updateTable(String[] cmdArr) {
 		int whereIndex=findWhereIndex(cmdArr);
@@ -47,23 +51,68 @@ public class Table {
 		`MobileNo`=[value-7],`TotalUnits`=[value-8],`TotalRevenue`=[value-9],
 		`CreatedOn`=[value-10] WHERE 1
 		*/
+		ArrayList<Integer> conditionIndex= new ArrayList<>();
+			HashMap<String, String> updateValue=new HashMap<>();
+			updateValue=getUpdateValue(cmdArr);
+			
 			HashMap<String, String> updateCondition= new HashMap<>();
-			updateCondition=getUpdateCondition(updateCondition,cmdArr);
+			updateCondition=getUpdateCondition(cmdArr);
+		Set<String> set=updateCondition.keySet();
+		for (String condition : set) {
+			if(column.containsKey(condition)) {
+				
+				if(column.get(condition).contains(updateCondition.get(condition))) {
+					conditionIndex.add(column.get(condition).indexOf(updateCondition.get(condition)));
+//					conditionIndex.add(2);
+					System.out.println(conditionIndex);
+					
+				}
+			}
+		}
 		
-		return true;
+		// get final index code 
+		
+		//updating values
+		Boolean success=false;
+		for (String updateCol : updateValue.keySet()) {
+			success=false;
+			if(column.containsKey(updateCol)) {
+				for (Integer index : conditionIndex) {
+					ArrayList<String> alist1=(ArrayList<String>) column.get(updateCol);
+					alist1.set(index,updateValue.get(updateCol));
+					success=true;
+				}
+			}
+		}
+		 System.out.println(column);
+		
+		return success;
 
 		
 	}
 
-	private HashMap<String, String> getUpdateCondition(HashMap<String, String> updateCondition, String[] cmdArr) {
-		updateCondition.clear();
+	private HashMap<String, String> getUpdateValue(String[] cmdArr) {
+		HashMap<String, String> updateValue =new HashMap<>();
+		 for(int i=3;i<findWhereIndex(cmdArr);i++) {
+			 if(keywordCheck(cmdArr[i],"=")){
+				 updateValue.put(cmdArr[i-1], cmdArr[i+1]);
+				 i++;
+			 }
+		 }
+		 System.out.println("Update Values  :  "+updateValue);
+		return updateValue;
+	
+}
+
+	private HashMap<String, String> getUpdateCondition(String[] cmdArr) {
+		HashMap<String, String> updateCondition =new HashMap<>();
 		 for(int i=findWhereIndex(cmdArr)+1;i<cmdArr.length;i++) {
 			 if(keywordCheck(cmdArr[i],"=")){
 				 updateCondition.put(cmdArr[i-1], cmdArr[i+1]);
 				 i++;
 			 }
 		 }
-		 System.out.println("condition :  "+updateCondition);
+		 System.out.println("Update condition :  "+updateCondition);
 		return updateCondition;
 	}
 
