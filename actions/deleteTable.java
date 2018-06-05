@@ -10,17 +10,16 @@ public class deleteTable {
     }
 
     private void initializeColumn() {
-	  // this is the hard coded function just to check implementation and uses the BooleanData.java file as a datatype
-	  ArrayList<BooleanData> value= new ArrayList<BooleanData>();
-	  value.add(new BooleanData("Id", 1));
-	  value.add(new BooleanData("Id", 0));
-	  column.put("Id", value);
+	// this is the hard coded function just to check implementation
+	ArrayList<Integer> value= new ArrayList<Integer>();
+	value.add(1);
+	value.add(2);
+	column.put("Id", value);
 	
-	  ArrayList<BooleanData> newval= new ArrayList<BooleanData>();
-	  newval.add(new BooleanData("Name", 0));
-	  newval.add(new BooleanData("Name", 1));
-	  column.put("Name", newval);
-	    
+	ArrayList<String> newval= new ArrayList<String>();
+	newval.add("A");
+	newval.add("B");
+	column.put("Name", newval);  
     }
 
     public String toString() {
