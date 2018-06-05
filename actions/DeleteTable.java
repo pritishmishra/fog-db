@@ -1,6 +1,7 @@
 package actions;
 
 import java.util.*;
+import com.google.gson.Gson;
 
 public class DeleteTable {
     private HashMap<String,ArrayList<?>> column=new HashMap<String,ArrayList<?>>();
@@ -35,8 +36,9 @@ public class DeleteTable {
 	  return remark;
     }
 
-    public boolean deleteTable(String Table) {
-	    if(this.tableName == Table) {
+    public boolean deleteTable(String[] cmdArr) {
+	    if(isValid(cmdArr)) {
+             this.tableName = cmdArr[2];
 	     for(String key: column.keySet()) {
 		     ArrayList<?> dataArray = (ArrayList<?>) column.get(key);
 		     int counter = 0;
@@ -51,5 +53,20 @@ public class DeleteTable {
 	      return false;
 	    }   
     }
+	
+    private boolean isValid(String[] cmdArr){
+	if(cmdArr[0].toUpperCase.equals("DELETE") && cmdArr[1].toUpperrCase.equals("FROM") {
+		return true;
+	}
+	else
+	        return false;
+	}
+    }
+	   	
+    public void convertGson() {
+	Gson gson=new Gson();
+	String json=gson.toJson(this);
+	System.out.println(json);
+   }   
 
 }
