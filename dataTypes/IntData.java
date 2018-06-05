@@ -1,13 +1,13 @@
 import java.util.*;
 
-class IntegerDatatype {
+class IntData {
     private static Object dataValue;
     private static int dataLenInBits;
     private static String dataName;
     private static String intType;
     private static int counterLen = 0;
 
-    IntegerDatatype(String name, String value){
+    IntData(String name, String value){
 	if(isValid(value)) {
 	    insertValue(name, Long.valueOf(value));
 	}
@@ -46,6 +46,7 @@ class IntegerDatatype {
 	}
     }
 
+	// this is for future work	
     private static String getType(int bitSize) {
 	switch(bitSize / 8) {
 	case 0:
