@@ -1,3 +1,4 @@
+package dataTypes;
 
 public class BooleanData {
 	int default_value=0;
