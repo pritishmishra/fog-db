@@ -1,3 +1,5 @@
+package dataTypes;
+
 import java.util.*;
 
 class IntData {
@@ -46,7 +48,7 @@ class IntData {
 	}
     }
 
-	// this is for future work	
+	
     private static String getType(int bitSize) {
 	switch(bitSize / 8) {
 	case 0:
@@ -74,6 +76,7 @@ class IntData {
 	}
     }
 
+	// for future work
     private static void setDataValue(IntegerDatatype object, int bitSize) {	
 	switch(bitSize / 8) {
 	case 0:
@@ -107,16 +110,5 @@ class IntData {
 
 	return remark;
     }
-}
-
-public class IntDatatypeTest {
-    public static void main(String[] args) {
-	Scanner scnobj = new Scanner(System.in);
-	System.out.println(" Enter variable name: ");
-	String name = scnobj.nextLine();
-	System.out.println(" Enter variable value: ");
-	String value = scnobj.nextLine();
-	IntegerDatatype inte = new IntegerDatatype(name,value);
-	System.out.println(inte.toString(inte));
-    }
+	
 }
