@@ -1,4 +1,4 @@
-package cliser;
+
 
 
 
@@ -14,7 +14,8 @@ class Client
 	{
 		try
 		{
-			s = new Socket(address,port);  
+			s = new Socket(address,port);
+			System.out.println(s);   
 		}
 		catch(Exception e)
 		{
