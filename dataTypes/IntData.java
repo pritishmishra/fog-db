@@ -1,13 +1,15 @@
+package dataTypes;
+
 import java.util.*;
 
-class IntegerDatatype {
+class IntData {
     private static Object dataValue;
     private static int dataLenInBits;
     private static String dataName;
     private static String intType;
     private static int counterLen = 0;
 
-    IntegerDatatype(String name, String value){
+    IntData(String name, String value){
 	if(isValid(value)) {
 	    insertValue(name, Long.valueOf(value));
 	}
@@ -46,6 +48,7 @@ class IntegerDatatype {
 	}
     }
 
+	
     private static String getType(int bitSize) {
 	switch(bitSize / 8) {
 	case 0:
@@ -73,6 +76,7 @@ class IntegerDatatype {
 	}
     }
 
+	// for future work
     private static void setDataValue(IntegerDatatype object, int bitSize) {	
 	switch(bitSize / 8) {
 	case 0:
@@ -106,16 +110,5 @@ class IntegerDatatype {
 
 	return remark;
     }
-}
-
-public class IntDatatypeTest {
-    public static void main(String[] args) {
-	Scanner scnobj = new Scanner(System.in);
-	System.out.println(" Enter variable name: ");
-	String name = scnobj.nextLine();
-	System.out.println(" Enter variable value: ");
-	String value = scnobj.nextLine();
-	IntegerDatatype inte = new IntegerDatatype(name,value);
-	System.out.println(inte.toString(inte));
-    }
+	
 }

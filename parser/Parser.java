@@ -1,8 +1,11 @@
-
+package parser;
 
 import java.util.Scanner;
 
-public class MainParser {
+import actions.*;
+
+
+public class Parser {
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -24,14 +27,17 @@ public class MainParser {
 		cmdArr[0]=cmdArr[0].toUpperCase();
 		System.out.println(cmdArr[0]);
 	
-		Table tableObj=new Table();
+		
 		Boolean cmdSuccess=false;
 		switch (cmdArr[0]) {
 		case "CREATE":
 			//creation and call to respective class object
 			break;
 		case "UPDATE":
-			cmdSuccess=tableObj.updateTable(cmdArr);
+			//update master set Name = x where Name = A
+			UpdateTable updateObj=new UpdateTable();
+			cmdSuccess=updateObj.updateTable(cmdArr);
+			updateObj.convertGson();
 			break;
 		case "DELETE":
 			//creation and call to respective class object
