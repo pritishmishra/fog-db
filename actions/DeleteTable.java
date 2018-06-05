@@ -1,10 +1,12 @@
+package actions;
+
 import java.util.*;
 
-public class deleteTable {
+public class DeleteTable {
     private HashMap<String,ArrayList<?>> column=new HashMap<String,ArrayList<?>>();
     private String tableName;
     
-    public deleteTable(String Table) {
+    public DeleteTable(String Table) {
 	    this.tableName = Table;
 	    initializeColumn();
     }
@@ -33,7 +35,7 @@ public class deleteTable {
 	  return remark;
     }
 
-    public void delete(String Table) {
+    public boolean deleteTable(String Table) {
 	    if(this.tableName == Table) {
 	     for(String key: column.keySet()) {
 		     ArrayList<?> dataArray = (ArrayList<?>) column.get(key);
@@ -42,9 +44,11 @@ public class deleteTable {
 		       dataArray.remove(counter);
 		     }
 	     }
+	     return true;
 	    } 
 	    else {
 	      System.out.println(" Table does not exist ");
+	      return false;
 	    }   
     }
 
