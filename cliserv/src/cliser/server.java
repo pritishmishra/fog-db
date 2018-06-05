@@ -12,7 +12,7 @@ public class server {
 public static void main(String args[]) throws IOException{  
 
     while(true){
-        ServerSocket ss=new ServerSocket(2222);
+        ServerSocket ss=new ServerSocket(11111);
         System.out.println("Server is Awaiting"); 
         Socket s=ss.accept();
         Multi t=new Multi(s);

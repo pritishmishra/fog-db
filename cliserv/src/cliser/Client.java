@@ -6,11 +6,11 @@ package cliser;
 import java.net.*;
 import java.io.*;
 
-class client1
+class Client
 {
 	private Socket s;
 	
-	public client1(String address,int port)
+	public Client(String address,int port)
 	{
 		try
 		{
@@ -42,7 +42,7 @@ class client1
 	
 	public static void main(String str[])
 	{
-		client1 ob=new client1("localhost",11111);
+		Client ob=new Client("localhost",11111);
 		try {
 			Thread.sleep(10000);
 			ob.sendMsgToServer();
