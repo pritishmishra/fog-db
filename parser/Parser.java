@@ -41,7 +41,7 @@ public class Parser {
 			break;
 		case "DELETE":
 			//creation and call to respective class object
-			DeleteTable delteObj = new DeleteTable();
+			DeleteTable deleteObj = new DeleteTable();
 			cmdSuccess = deleteObj.deleteTable(cmdArr);
 			deleteObj.convertGson();
 			break;

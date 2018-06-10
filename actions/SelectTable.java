@@ -1,4 +1,4 @@
-package actions;
+package json;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +51,8 @@ static void update_table(String[] com_parts) {
 	}
 static void select(HashMap<String, ArrayList<String>> col, String[] com_parts)
 {
-	if(com_parts[1].equals("*")&&com_parts.length==4)
+	String seq[]=com_parts[1].split(",");
+	if(com_parts[1].equals("*")&&com_parts.length==4||seq.length==3&&com_parts.length==4)
         System.out.println(col);
 	else
 	{
@@ -86,15 +87,18 @@ static void select(HashMap<String, ArrayList<String>> col, String[] com_parts)
 				   }
 				    else if(com_parts[1].contains(","))
 				    {
-				    	String seq[]=com_parts[1].split(",");
+				    	
 				    	for(int j=0;j<seq.length;j++)
 				    	{
 				    		 if(col.containsKey(seq[j]))
 						    	{
 						    	ArrayList<?> alist3=col.get(seq[j]);
-						    	System.out.println(seq[j]+"="+alist3.get(i));
+						    	ArrayList<String> alist4=new ArrayList<String>();
+						    	alist4.add((String) alist3.get(i));
+						    	System.out.println(seq[j]+"="+alist4);
 						    	}
 				    	}
+				    	
 				    }
 			}
 		}
