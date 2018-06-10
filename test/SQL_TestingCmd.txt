@@ -1,0 +1,16 @@
+Update:
+update master set name = XYZ where roll = 4
+update master set name = XYZ , subject = maths where roll = 5
+
+Delete:
+
+
+Insert:
+insert into tablename (roll,name,subject) values (111,xyz,ABC)
+insert into tablename values (111,xyz,ABC)
+
+Select:
+select name from tablename where subject=daa
+select name,roll from tablename where roll=3
+select * from tablename
+select * from tablename where name=b
