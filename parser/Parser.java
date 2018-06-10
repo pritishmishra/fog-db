@@ -1,34 +1,32 @@
 package parser;
-
 import java.util.Scanner;
-
 import actions.*;
+
 
 
 public class Parser {
 
-	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
+	public void main(String args[])
+			{
 		System.out.println("Enter your command");
-		String cmd=in.nextLine();
-		parserString(cmd);
-		
+        Scanner sc=new Scanner(System.in);
+		String cmd = sc.nextLine();
+			}
+    
+	
 
-	}
-
-	private static void parserString(String cmd) {
+	 public String parserString(String cmd) {
+		 String jsonServer = null;
 		// add a semicolon at last process begins
 		cmd=cmd.trim();
-		if(cmd.charAt(cmd.length()-1)!=';') {
-			cmd+=" ;";
-		}
+		
 		// add a semicolon at last process ends
 		String cmdArr[]=cmd.split(" ");
 		cmdArr[0]=cmdArr[0].toUpperCase();
-		System.out.println(cmdArr[0]);
+		
 	
 		
-		Boolean cmdSuccess=false;
+//		Boolean cmdSuccess=false;
 		switch (cmdArr[0]) {
 		case "CREATE":
 			//creation and call to respective class object
@@ -36,30 +34,29 @@ public class Parser {
 		case "UPDATE":
 			//update master set Name = x where Name = A
 			UpdateTable updateObj=new UpdateTable();
-			cmdSuccess=updateObj.updateTable(cmdArr);
-			updateObj.convertGson();
+			jsonServer=updateObj.updateTable(cmdArr);
+//			updateObj.convertGson();
 			break;
 		case "DELETE":
 			//creation and call to respective class object
-			DeleteTable deleteObj = new DeleteTable();
-			cmdSuccess = deleteObj.deleteTable(cmdArr);
-			deleteObj.convertGson();
 			break;
 		case "INSERT":
 			//creation and call to respective class object
+			InsertTable insertObj=new InsertTable();
+			 jsonServer=insertObj.check_insert(cmd);
 			break;
+		case "SELECT":
+			SelectTable selectObj=new SelectTable();
+			jsonServer=selectObj.selectTable(cmd);
 		case "ALTER":
 			break;
 
 		default:
-			System.out.println("Not A valid Command");
-			break;
+			return "Not A valid Command";
+			
 		}
-		if(cmdSuccess) {
-			System.out.println(cmd+" SUCCESSFULL");
-		}else {
-			System.out.println(cmd+" NOT SUCCESSFULL");
-		}
+		
+		return jsonServer;
 		
 	}
 

@@ -1,5 +1,4 @@
 package actions;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -9,7 +8,7 @@ import com.google.gson.Gson;
 
 public class InsertTable {
 
-	//insert into tablename (roll,name,subject) values (111,"xyz","ABC")
+	//insert into tablename (roll,name,subject) values (111,xyz,ABC)
 	  	
 	  String table_name;
 	  HashMap<String,ArrayList<String>> col=new HashMap<String,ArrayList<String>>();
@@ -22,20 +21,21 @@ public class InsertTable {
 		super();
 	}
 
-	public   void check_insert(String cmd)
+	public   String check_insert(String cmd)
 	{
 		String cmd_parts[]=cmd.split(" ");
 		if((cmd_parts[0].toLowerCase()).equals("insert") && (cmd_parts[1].toLowerCase()).equals("into")&&( (cmd_parts[3].toLowerCase()).equals("values") || (cmd_parts[4].toLowerCase()).equals("values"))) 
 		{
 			
 			
-			insertTable(cmd_parts);
+			String w=insertTable(cmd_parts);
+			return w;
 		}
 		else
-			System.out.println("please enter correct command");
+		return "please enter correct command ";
 	}
 	
-	public   void insertTable(String cmd_parts[])
+	public   String insertTable(String cmd_parts[])
 	{
 		table_name=cmd_parts[2];
 		col1_data.add("1");
@@ -58,11 +58,11 @@ public class InsertTable {
 		col3_data.add("iot");
 		col3_data.add("java");
 		col.put("subject", col3_data);
-		System.out.println(col);
-		inserting_table(col,cmd_parts);
+		String r=inserting_table(col,cmd_parts);
+		return r;
 	}
 	
-	public void inserting_table(HashMap<String,ArrayList<String>> col, String cmd_parts[])
+	public String inserting_table(HashMap<String,ArrayList<String>> col, String cmd_parts[])
 	{	InsertTable in=new InsertTable();
 		in.table_name=cmd_parts[2];
 		String condition_parts[]=null;
@@ -102,21 +102,17 @@ public class InsertTable {
 		 col.put("subject", col3_data);
 		 
 		 in.col=col;
-		 System.out.println(col);
+		
 		 Gson gson=new Gson();
 		String json1 = gson.toJson(in); 
-	 	System.out.println(json1);
+	 	return json1;
 
 		 
 	}
 	public static void main(String[] args) {
-
-		System.out.println("Enter your command");
-		Scanner sc=new Scanner(System.in);
-		String cmd = sc.nextLine();
-		InsertTable insertObj=new InsertTable();
-		insertObj.check_insert(cmd);
-
+    
+		
 	}
 
 }
+

@@ -1,30 +1,45 @@
-package json;
+package actions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import com.google.gson.Gson;
+
 public class SelectTable {
-static Scanner sc=new Scanner(System.in);
-public static void main(String args[])
-{
-	String com=null;
-	System.out.println("enter the command");
-	com=sc.nextLine();
+	String table_name;
+	HashMap<String,ArrayList<String>> col=new HashMap<String,ArrayList<String>>();
+	HashMap<String, ArrayList<String>> selected=new HashMap<>();
+
+
+public String selectTable(String com) {
 	check_command(com);
+	return convertGson(selected);
+	
+	// TODO Auto-generated method stub
+	
 }
-static void check_command(String com)
+private String convertGson(HashMap<String, ArrayList<String>> selected) {
+	// TODO Auto-generated method stub
+	Gson gson = new Gson();
+	String json=gson.toJson(selected);
+	return json;
+}
+public void check_command(String com)
 {
 	String com_parts[]=com.split(" ");
-	if((com_parts[0].toLowerCase()).equals("select"))
-		update_table(com_parts);
-	else
+	if((com_parts[0].toLowerCase()).equals("select")) {
+		init_table(com_parts);
+	
+	}
+	else {
+
 		System.out.println("please enter a valid command");
+	}
 }
-static void update_table(String[] com_parts) {
-		String table_name;
+public void init_table(String[] com_parts) {
 		table_name=com_parts[1];
-		HashMap<String,ArrayList<String>> col=new HashMap<String,ArrayList<String>>();
+
 		ArrayList<String> col1_data=new ArrayList<String>();
 		col1_data.add("1");
 		col1_data.add("2");
@@ -49,11 +64,15 @@ static void update_table(String[] com_parts) {
 		//System.out.println(col);
 		select(col,com_parts);
 	}
-static void select(HashMap<String, ArrayList<String>> col, String[] com_parts)
+public void select(HashMap<String, ArrayList<String>> col, String[] com_parts)
 {
-	String seq[]=com_parts[1].split(",");
-	if(com_parts[1].equals("*")&&com_parts.length==4||seq.length==3&&com_parts.length==4)
-        System.out.println(col);
+	
+
+	if(com_parts[1].equals("*") && com_parts.length==4) {
+
+		selected.putAll(col);
+      System.out.println(col);
+	}
 	else
 	{
 		String condition_parts[]=null;
@@ -74,31 +93,37 @@ static void select(HashMap<String, ArrayList<String>> col, String[] com_parts)
 				int i=alist2.indexOf(condition_parts[1]);
 				    if(col.containsKey(com_parts[1]))
 				    	{
-				    	ArrayList<?> alist1=col.get(com_parts[1]);
+				    	ArrayList<String> alist1=col.get(com_parts[1]);
+				    	ArrayList<String> alist4=new ArrayList<>();
+				    	alist4.add(alist1.get(i));
+				    	selected.put(com_parts[1], alist4);
 				    	System.out.println(com_parts[1]+"="+alist1.get(i));
 				    	}
 				    else if(com_parts[1].equals("*"))
 				   {
 				    for(String key:col.keySet())
 				    {
-				    	ArrayList<?> alist=col.get(key);
+				    	ArrayList<String> alist=col.get(key);
+				    	ArrayList<String> alist4=new ArrayList<>();
+				    	alist4.add(alist.get(i));
+				    	selected.put(key, alist4);
 				    	System.out.println(key+"="+alist.get(i));
 				    }
 				   }
 				    else if(com_parts[1].contains(","))
 				    {
-				    	
+				    	String seq[]=com_parts[1].split(",");
 				    	for(int j=0;j<seq.length;j++)
 				    	{
 				    		 if(col.containsKey(seq[j]))
 						    	{
-						    	ArrayList<?> alist3=col.get(seq[j]);
-						    	ArrayList<String> alist4=new ArrayList<String>();
-						    	alist4.add((String) alist3.get(i));
-						    	System.out.println(seq[j]+"="+alist4);
+						    	ArrayList<String> alist3=col.get(seq[j]);
+						    	ArrayList<String> alist4=new ArrayList<>();
+						    	alist4.add(alist3.get(i));
+					    	selected.put(seq[j], alist4);
+						    	System.out.println(seq[j]+"="+alist3.get(i));
 						    	}
 				    	}
-				    	
 				    }
 			}
 		}

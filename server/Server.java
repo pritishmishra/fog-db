@@ -1,6 +1,14 @@
 package server;
 import java.util.logging.Level;
+
+
 import java.util.logging.Logger;
+
+import com.google.gson.Gson;
+
+import client.Client;
+import parser.Parser;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -26,39 +34,42 @@ public static void main(String args[]) throws IOException{
 		}
         ss.close();
     }    
-
-
-
-
     }   
 }
-
-
-
 
 class Multi extends Thread{
 private Socket s=null;
 DataInputStream infromClient;
+DataOutputStream out;
+
 Multi() throws IOException{
-
-
 }
+
 Multi(Socket s) throws IOException{
     this.s=s;
     infromClient = new DataInputStream(s.getInputStream());
+     out = new DataOutputStream(s.getOutputStream());
 }
 public void run(){  
 
     String SQL=new String();
     try {
         SQL = infromClient.readUTF();
-        DataOutputStream out = new DataOutputStream(s.getOutputStream());
-        out.writeUTF("Thank you for connecting to " + s.getLocalSocketAddress()
-            + "\nGoodbye!");
+		Gson gson = new Gson();
+		System.out.println("file: "+SQL); 
+		   // Convert JSON to Java Object.
+            Client header = gson.fromJson(SQL, Client.class);
+             
+          String s1= header.get("cmd");
+           
+          Parser obj = new Parser();
+         String msg= obj.parserString(s1);
+         System.out.println(msg);
+        out.writeUTF(msg);
     } catch (IOException ex) {
         Logger.getLogger(Multi.class.getName()).log(Level.SEVERE, null, ex);
     }
-    System.out.println("Query: " + SQL); 
+  
     try {
         System.out.println("Socket Closing");
         s.close();
