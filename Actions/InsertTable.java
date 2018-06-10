@@ -1,23 +1,15 @@
-package actions;
-
+package clientserver1;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-
 import com.google.gson.Gson;
-
-
 public class InsertTable {
-
-	//insert into tablename (roll,name,subject) values (111,"xyz","ABC")
-	  	
+	//insert into tablename (roll,name,subject) values (111,"xyz","ABC")	  	
 	  String table_name;
-	  HashMap<String,ArrayList<String>> col=new HashMap<String,ArrayList<String>>();
-	
+	  HashMap<String,ArrayList<String>> col=new HashMap<String,ArrayList<String>>();	
 	  ArrayList<String> col1_data=new ArrayList<String>();
 	  ArrayList<String> col2_data=new ArrayList<String>();
-	  ArrayList<String> col3_data=new ArrayList<String>();
-	  
+	  ArrayList<String> col3_data=new ArrayList<String>();	  
 	public InsertTable() {
 		super();
 	}
@@ -76,9 +68,6 @@ public class InsertTable {
 			if(cmd_parts[j].equals("values"))
 			{	//splitting the condition i.e. values
 				condition_parts=cmd_parts[j+1].split(",");
-				
-				
-				
 			}
 		}
 		
@@ -92,7 +81,6 @@ public class InsertTable {
 		}
 		condition_parts[0]=s;
 		condition_parts[2]=s1;
-		
 		 col1_data.add(5,condition_parts[0]);
 		 col2_data.add(5,condition_parts[1]);
 		 col3_data.add(5,condition_parts[2]);
@@ -100,23 +88,18 @@ public class InsertTable {
 		 col.put("roll", col1_data);
 		 col.put("name", col2_data);
 		 col.put("subject", col3_data);
-		 
 		 in.col=col;
 		 System.out.println(col);
 		 Gson gson=new Gson();
 		String json1 = gson.toJson(in); 
-	 	System.out.println(json1);
-
-		 
+	 	System.out.println(json1);		 
 	}
 	public static void main(String[] args) {
-
 		System.out.println("Enter your command");
 		Scanner sc=new Scanner(System.in);
 		String cmd = sc.nextLine();
 		InsertTable insertObj=new InsertTable();
 		insertObj.check_insert(cmd);
-
 	}
 
 }
