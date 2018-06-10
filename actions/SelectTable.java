@@ -76,10 +76,26 @@ static void select(HashMap<String, ArrayList<String>> col, String[] com_parts)
 				    	ArrayList<?> alist1=col.get(com_parts[1]);
 				    	System.out.println(com_parts[1]+"="+alist1.get(i));
 				    	}
-				    //else if(com_parts[1].equals("*"))
-				   // {
-				    //System.out.println();	
-				    //}
+				    else if(com_parts[1].equals("*"))
+				   {
+				    for(String key:col.keySet())
+				    {
+				    	ArrayList<?> alist=col.get(key);
+				    	System.out.println(key+"="+alist.get(i));
+				    }
+				   }
+				    else if(com_parts[1].contains(","))
+				    {
+				    	String seq[]=com_parts[1].split(",");
+				    	for(int j=0;j<seq.length;j++)
+				    	{
+				    		 if(col.containsKey(seq[j]))
+						    	{
+						    	ArrayList<?> alist3=col.get(seq[j]);
+						    	System.out.println(seq[j]+"="+alist3.get(i));
+						    	}
+				    	}
+				    }
 			}
 		}
 	}
