@@ -39,6 +39,8 @@ public class Parser {
 			break;
 		case "DELETE":
 			//creation and call to respective class object
+			DeleteTable deleteObj= new DeleteTable();
+			jsonServer=deleteObj.deleteTable(cmdArr);
 			break;
 		case "INSERT":
 			//creation and call to respective class object
