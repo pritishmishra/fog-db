@@ -30,6 +30,8 @@ public class Parser {
 		switch (cmdArr[0]) {
 		case "CREATE":
 			//creation and call to respective class object
+			CreateTable createObj=new CreateTable();
+			jsonServer=createObj.createTable(cmdArr);
 			break;
 		case "UPDATE":
 			//update master set Name = x where Name = A
