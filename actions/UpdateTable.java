@@ -1,5 +1,4 @@
 package actions;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,33 +18,47 @@ public class UpdateTable {
 	private void initializeColumn() {
 		//this is the hard coded function just to check implementation
 		tableName="master";
-		ArrayList<Integer> value= new ArrayList<Integer>();
-		value.add(1);
-		value.add(2);
-		value.add(3);
-		column.put("Id", value);
-		ArrayList<String> newval= new ArrayList<String>();
-		newval.add("A");
-		newval.add("B");
-		newval.add("C");
-		column.put("Name", newval);
-		System.out.println(column);
+		ArrayList<String> col1_data=new ArrayList<String>();
+		col1_data.add("1");
+		col1_data.add("2");
+		col1_data.add("3");
+		col1_data.add("4");
+		col1_data.add("5");
+		column.put("roll", col1_data);
+		ArrayList<String> col2_data=new ArrayList<String>();
+		col2_data.add("a");
+		col2_data.add("b");
+		col2_data.add("c");
+		col2_data.add("d");
+		col2_data.add("e");
+		column.put("name", col2_data);
+		ArrayList<String> col3_data=new ArrayList<String>();
+		col3_data.add("daa");
+		col3_data.add("dbms");
+		col3_data.add("cc");
+		col3_data.add("iot");
+		col3_data.add("java");
+		column.put("subject", col3_data);
+//		System.out.println(column);
 		
 	}
-	public void convertGson() {
+	public String convertGson() {
 		Gson gson=new Gson();
 		String json=gson.toJson(this);
-		System.out.println(json);
+		return json;
 	}
 
 
-	public boolean updateTable(String[] cmdArr) {
+	public String updateTable(String[] cmdArr) {
 		boolean validateCheck= validatator(cmdArr);
 		if(validateCheck) {
 			System.out.println("Correct Command now table will be updated");
-			action(cmdArr);
+			if(action(cmdArr)) {
+			String json=this.convertGson();
+			return json;
+			}
 		}
-		return validateCheck;		
+		return "Please Enter valid Command";
 	}
 
 	private boolean validatator(String[] cmdArr) {
@@ -163,3 +176,5 @@ private HashMap<String, String> getUpdateValue(String[] cmdArr) {
 	}
 
 }
+
+
