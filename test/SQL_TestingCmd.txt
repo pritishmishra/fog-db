@@ -3,7 +3,7 @@ update master set name = XYZ where roll = 4
 update master set name = XYZ , subject = maths where roll = 5
 
 Delete:
-
+delete from tablename
 
 Insert:
 insert into tablename (roll,name,subject) values (111,xyz,ABC)

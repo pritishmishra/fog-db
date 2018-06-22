@@ -30,6 +30,12 @@ public class Parser {
 		switch (cmdArr[0]) {
 		case "CREATE":
 			//creation and call to respective class object
+<<<<<<< HEAD
+			CreateTable createObj=new CreateTable();
+=======
+		        CreateTable createObj= new CreateTable();
+>>>>>>> bf32eed02d94062ce47d99c60b09f2b5bae6df95
+			jsonServer=createObj.createTable(cmdArr);
 			break;
 		case "UPDATE":
 			//update master set Name = x where Name = A
@@ -39,6 +45,8 @@ public class Parser {
 			break;
 		case "DELETE":
 			//creation and call to respective class object
+			DeleteTable deleteObj= new DeleteTable();
+			jsonServer=deleteObj.deleteTable(cmdArr);
 			break;
 		case "INSERT":
 			//creation and call to respective class object
