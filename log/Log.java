@@ -17,7 +17,7 @@ public class Log {
 		if(!file.exists()) {
 			file.createNewFile();
 		}
-		logger =Logger.getLogger(System.currentTimeMillis()+"");
+		logger =Logger.getLogger("test");
 		logger.setUseParentHandlers(false);
 		
 		fh=new FileHandler(fileName, true);

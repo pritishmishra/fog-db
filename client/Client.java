@@ -1,14 +1,14 @@
 
 package client;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.Socket;
+import java.net.*;
+
 import java.util.Scanner;
-import java.util.logging.Handler;
 
 import com.google.gson.Gson;
 
-import log.Log;
+
+
+import java.io.*;
 
 public class Client
 {
@@ -32,8 +32,6 @@ public class Client
 	}
 
 	public void sendMsg() throws Exception{
-		Log logObj = new Log("clientlog.log");
-		
 		System.out.println("Enter your command");
 		Client obj = new Client();
 		String SQL1=" ";
@@ -42,24 +40,13 @@ public class Client
 		 obj.cmd=cmd;
 		 Gson gson=new Gson();
 			String json1 = gson.toJson(obj);
-			logObj.logger.info(json1);
-			//System.out.println(json1);
+			System.out.println(json1);
 		DataOutputStream dos = new DataOutputStream(s.getOutputStream());
 		DataInputStream infromServer = new DataInputStream(s.getInputStream());
 		dos.writeUTF(json1);
 		SQL1 = infromServer.readUTF();
-		
-		if(SQL1.charAt(0)=='{' && SQL1.charAt(SQL1.length()-1)=='}') {
-			logObj.logger.info(SQL1);
-		}else {
-			logObj.logger.severe(SQL1);
-		}
-	    //System.out.println(SQL1);
+	    System.out.println(SQL1);
 		dos.close();
-		for(Handler h:logObj.logger.getHandlers())
-        {
-            h.close();   //must call h.close or a .LCK file will remain.
-        }
 		
 
 		
@@ -70,7 +57,7 @@ public class Client
 	}
 	
 	public static void main(String str[])
-	{//172.29.9.245
+	{
 		Client ob=new Client("localhost",11111);
 		try {
 			Thread.sleep(1000);
